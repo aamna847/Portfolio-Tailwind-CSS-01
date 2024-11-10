@@ -1,47 +1,39 @@
-import React from 'react';
+"use client";
+import React, { useState } from 'react';
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
-import { useState } from 'react';
+import "../app/styles/navbar.css";
 
-const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+type NavbarProps=object 
 
-  const toogleMenu = () => {
-    setIsMenuOpen(!isMenuOpen)
-  }
+const Navbar: React.FC<NavbarProps> = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
-    <div className='container pt-8'>
-      <div className='flex justify-between items-center'>
-        <div className='text-xl font-medium'>Aamna Rana</div>
-        <ul className='gap-10 lg:gap-16 hidden md:flex'>
-            <li className="menuLink"><a href="#hero">Home</a></li>
-            <li className="menuLink"><a href="#about">About</a></li>
-            <li className="menuLink"><a href="#contact">Contact</a></li>
+    <div className='navbar-container'>
+      <div className='navbar'>
+        <div className='navbar-brand'>Aamna Rana</div>
+        <ul className={`navbar-links ${isMenuOpen ? 'open' : ''}`}>
+          <li className="navbar-link"><a href="#hero">Home</a></li>
+          <li className="navbar-link"><a href="#about">About</a></li>
+          <li className="navbar-link"><a href="#contact">Contact</a></li>
         </ul>
-        <div className="md:hidden" onClick={toogleMenu}>
-          {isMenuOpen ? <AiOutlineClose size={30} /> :
-          <AiOutlineMenu size={30} />
-          }
+        <div className="navbar-menu-icon" onClick={toggleMenu}>
+          {isMenuOpen ? <AiOutlineClose size={30} /> : <AiOutlineMenu size={30} />}
         </div>
       </div>
-
-
-      {
-        isMenuOpen && (
-            <ul className="flex flex-col gap-4 mt-4 md:hidden">
-              <li className="menuLink">
-                <a href="#hero" onClick={toogleMenu}>Home</a>
-              </li>
-              <li className="menuLink">
-                <a href="#about" onClick={toogleMenu}>About</a>
-              </li>
-              <li className="menuLink">
-                <a href="#contact" onClick={toogleMenu}>Contact</a>
-              </li>
-            </ul>
-      )
-      }
+      {isMenuOpen && (
+        <ul className={`navbar-menu ${isMenuOpen ? 'open' : ''}`} onClick={toggleMenu}>
+          <li className="navbar-link"><a href="#hero">Home</a></li>
+          <li className="navbar-link"><a href="#about">About</a></li>
+          <li className="navbar-link"><a href="#contact">Contact</a></li>
+        </ul>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
